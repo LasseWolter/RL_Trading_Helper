@@ -1,0 +1,22 @@
+{
+    "name": "RL-Trade-Helper",
+    "version": "1.0",
+    "description": "This extension helps with finding the trades are looking for",
+    "permissions":["activeTab", "declarativeContent","storage"],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup":"popup.html",
+	"default_icon": "images/rl_icon_100.png"
+    },
+    "options_page": "options.html",
+    "icons": {
+	"16":"images/rl_icon_100.png",
+	"32":"images/rl_icon_100.png",
+	"48":"images/rl_icon_100.png",
+	"128":"images/rl_icon_100.png"
+    },
+    "manifest_version": 2
+}
