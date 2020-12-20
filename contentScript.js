@@ -1,6 +1,6 @@
 console.log("content script landed");
 
-chrome.runtime.onMessage.addListener(function (request, _, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request) {
     if (request.bumpAll === "yes") {
         console.log('received request to bump');
         // List with Bump Buttons

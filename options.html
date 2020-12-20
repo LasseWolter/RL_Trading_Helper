@@ -3,21 +3,137 @@
 
 <head>
     <style>
+        /* Button Design from https://www.fabriziovanmarciano.com/button-styles/ */
         button {
+            color: #5ea4ff !important;
+            text-transform: uppercase;
+            background: #ffffff;
+            padding: 10px;
+            border: 4px solid #5ea4ff61 !important;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease 0s;
+        }
+
+        button:hover {
+            cursor: pointer;
+            color: #494949 !important;
+            border-radius: 30px;
+            border-color: #494949 !important;
+            transition: all 0.3s ease 0s;
+        }
+
+        /* Notification Popup*/
+        #noti {
+            display: none;
             height: 30px;
-            width: 30px;
-            outline: none;
-            margin: 10px;
+            width: 70%;
+            border-radius: 5px;
+            position: relative;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #5ea4ff61;
+            padding: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        #noti h4 {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        /* 
+           START Code taken from bootstrap 
+           https://getbootstrap.com/docs/5.0/getting-started/download/
+         */
+
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        .mt-0 {
+            margin-top: 0 !important;
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem !important;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem !important;
+        }
+
+        .mt-3 {
+            margin-top: 1rem !important;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem !important;
+        }
+
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+
+        /* END Code taken from boostrap */
+
+        .settings-div {
+            font-size: 14px;
+        }
+
+        input {
+            padding: 5px;
+            margin: 5px 0;
+            border: none;
+            border-bottom: 1px solid black;
         }
     </style>
 </head>
 
 <body>
-    <div id="buttonDiv">
+    <div class='container'>
+        <h2> Update Your Settings </h2>
+        <div class='settings-div'>
+            <label for="uname-input">Username: </label>
+            <input type="text" placeholder="Enter your Username" id="uname-input">
+            </br>
+            <button class="mt-3" type="submit" id="sbmt-uname"> Update Settings </button>
+            <div id='noti'>
+                <h4> Settings Updated <h4>
+            </div>
+        </div>
     </div>
-    <div>
-        <p>Choose a different background color!</p>
-    </div>
+
     <script src="options.js"></script>
 </body>
 

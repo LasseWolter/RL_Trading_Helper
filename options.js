@@ -1,17 +1,17 @@
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-console.log('hello');
-function constructOptions(kButtonColors) {
-    for (let item of kButtonColors) {
-        let button = document.createElement('button');
-        button.style.backgroundColor = 'black';
-        button.addEventListener('click', function () {
-            chrome.storage.sync.set({color: item}, function () {
-                console.log('color is ' + item);
-            })
+sbmtUname = document.getElementById('sbmt-uname');
+
+sbmtUname.onclick = function updateUsername() {
+    let uname = document.getElementById('uname-input').value;
+    if (uname) {
+        chrome.storage.sync.set({'username': uname}, function () {
+            console.log('New Username is: ' + uname);
+            showNotification();
         });
-        page.appendChild(button);
     }
 }
-constructOptions(kButtonColors);
 
+function showNotification() {
+    var el = document.getElementById("noti");
+    el.style.display = 'block';
+    setTimeout(() => {el.style.display = 'none'}, 1500);
+}
