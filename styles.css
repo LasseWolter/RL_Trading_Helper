@@ -1,0 +1,10 @@
+#saved-searches-div {
+    position:fixed;
+    height: 500px;
+    width:200px;
+    right: 10px;
+    top: 30%;
+    background: #205d9eeb;
+    z-index: 500;
+    padding:10px;
+}

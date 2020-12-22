@@ -10,7 +10,8 @@
   "content_scripts": [
     {
       "matches": ["https://*.rocket-league.com/*"],
-      "js": ["contentScript.js"]
+      "js": ["contentScript.js"],
+      "css": ["styles.css"]
     } 
   ],
   "browser_action": {
