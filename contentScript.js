@@ -91,6 +91,8 @@ function recallSidebarState() {
         } else {
             sidebar.style.right = '0px'
         }
+        // Before the display is none to avoid flickering on pageload
+        sidebar.style.display = 'block';
     })
 }
 

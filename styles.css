@@ -11,6 +11,7 @@
     text-align:center;
     border-radius: 0 0 0 0.5rem;
     transition: all 0.3s ease;
+    display: none /* to avoid flicker on pageload*/
 }
 
 #saved-searches-div hr {
