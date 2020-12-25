@@ -83,7 +83,7 @@ recallSidebarState();
 // Recall which state the sidebar was in (collapsed or not) and display it that way
 // If sidebarState is undefined set the value to collapsed
 function recallSidebarState() {
-        chrome.storage.sync.get({sidebarState: 'collapsed'}, function (result) {
+    chrome.storage.sync.get({sidebarState: 'collapsed'}, function (result) {
         let state = result.sidebarState;
         if (state === 'collapsed') {
             let sidebarWidth = getComputedStyle(sidebar).width;
@@ -114,7 +114,7 @@ function toggleSidebar() {
 }
 
 // Populate the list of saved searches in the sidebar
-function populateSavedSearches() {
+function populateSavedSearches(keepEditing = false) {
     chrome.storage.sync.get({savedSearches: {}}, function (result) {
 
         // Clear list before populating it again
@@ -139,7 +139,13 @@ function populateSavedSearches() {
             let btn_del = document.createElement('button');
             btn_del.classList.add('btn-del'); // to allow custom styling (see styles.css)
             btn_del.innerHTML = '&#10005'; // code for a cross ->  X
-            btn_del.style.display = 'none'; // hide btn by default
+
+            // In case the call came from an item deletion we want to keep editing 
+            if (keepEditing) {
+                btn_del.style.display = 'block';
+            } else {
+                btn_del.style.display = 'none'; // hide btn by default
+            }
             btn_del.onclick = deleteSearch.bind(this, search.id);
             item.appendChild(btn_del);
 
@@ -187,7 +193,7 @@ function deleteSearch(id) {
         let searches = result.savedSearches;
         delete searches[id];
         chrome.storage.sync.set({savedSearches: searches}, () => {
-            populateSavedSearches();
+            populateSavedSearches(true);
         })
     })
 }
