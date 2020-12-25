@@ -1,10 +1,91 @@
+
+/* START Saved Searches Sidebar */
 #saved-searches-div {
     position:fixed;
     height: 500px;
     width:200px;
-    right: 10px;
+    right: 0px;
     top: 30%;
     background: #205d9eeb;
     z-index: 500;
     padding:10px;
+    text-align:center;
+    border-radius: 0 0 0 0.5rem;
+    transition: all 0.3s ease;
 }
+
+#saved-searches-div hr {
+    margin:10px;
+    background: white;
+    border:none
+}
+
+#saved-searches-div h4 {
+    color:white !important;
+}
+
+#sidebar-toggle-btn {
+    position: absolute;
+    top: 0px;
+    left: -40px;
+    width: 40px;
+    height: 40px;
+    border:none;
+    background: #205d9eeb;
+    outline:none;
+    font-size: 25px;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+#sidebar-toggle-btn:hover{
+    cursor: pointer;
+}
+
+.btn-toggle-edit {
+    color: #070707;
+    border-radius: 0.5rem;
+    background: #b2cbe5;
+    border:none;
+    outline: none;
+}
+
+.btn-toggle-edit:hover {
+    background: #dfeaf6;
+    cursor: pointer;
+}
+
+.btn-del {
+   width: 20px;
+   line-height: 20px;
+   border-radius: 1rem;
+   background: #b2cbe5;
+   color: #5b5353;
+   border:none;
+   float: right;
+   padding:0;
+}
+
+.btn-del:hover {
+    cursor: pointer;
+}
+
+#saved-searches-list {
+    text-align: left;
+    padding-left: 25px;
+    margin-top:5px;
+}
+
+.saved-search-item {
+    padding: initial;
+}
+
+#saved-searches-list {
+    text-align: left;
+    padding-left: 25px;
+}
+
+.saved-search-item {
+    color: #e3dada; 
+}
+
+/* END Saved Searches Sidebar */
