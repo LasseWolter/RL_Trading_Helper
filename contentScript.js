@@ -46,7 +46,7 @@ sidebarToggleBtn.setAttribute('id', 'sidebar-toggle-btn');
 sidebarToggleBtn.innerHTML = '&#10025';
 sidebarToggleBtn.onclick = function() {
     if (sidebar.style.right === '0px') {
-        sidebar.style.right = '-200px';
+        sidebar.style.right = '-250px';
     } else {
         sidebar.style.right = '0px';
     }
@@ -140,7 +140,9 @@ function saveSearch(e) {
     e.preventDefault();
     let search = {}
     search.id = Date.now() // generate uid - that it's guessable isn't important for this application 
-    search.name = document.querySelector("#filterItem_chosen > a > span").innerText;
+    let item =  document.querySelector("#filterItem_chosen > a > span").innerText;
+    let colour = document.querySelector("#filterPaint_chosen > a > span").innerText;
+    search.name = `${colour} ${item}`
     search.link = window.location.href;
 
     // Idea for following code taken from https://stackoverflow.com/questions/16605706/store-an-array-with-chrome-storage-local
@@ -164,7 +166,6 @@ function deleteSearch(id) {
         delete searches[id];
         chrome.storage.sync.set({savedSearches: searches}, () => {
             populateSavedSearches();
-            alert('Item successfully deleted :)');
         })
     })
 }
