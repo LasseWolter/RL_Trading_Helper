@@ -1,6 +1,5 @@
 chrome.runtime.onMessage.addListener(function (request) {
     if (request.bumpAll === "yes") {
-        console.log('received request to bump');
         // List with Bump Buttons
         let queryString = ".rlg-trade__action.rlg-trade__bump.--bump "
         let bumpBtns = document.querySelectorAll(queryString);
@@ -39,18 +38,11 @@ if (applyDiv) {
 // Add Sidebar containing your saved searches
 let sidebar = document.createElement('div');
 sidebar.setAttribute('id', 'saved-searches-div');
-sidebar.style.right= '0px'; // to have a value set for first toggle
 
 let sidebarToggleBtn = document.createElement('Button');
 sidebarToggleBtn.setAttribute('id', 'sidebar-toggle-btn');
 sidebarToggleBtn.innerHTML = '&#10025';
-sidebarToggleBtn.onclick = function() {
-    if (sidebar.style.right === '0px') {
-        sidebar.style.right = '-250px';
-    } else {
-        sidebar.style.right = '0px';
-    }
-}
+sidebarToggleBtn.onclick = toggleSidebar;
 sidebar.appendChild(sidebarToggleBtn);
 
 let heading = document.createElement('h4');
@@ -64,9 +56,8 @@ list.setAttribute('id', 'saved-searches-list');
 let toggle_edit_btn = document.createElement('button');
 toggle_edit_btn.innerText = 'edit items';
 toggle_edit_btn.classList.add('btn-toggle-edit');
-toggle_edit_btn.onclick = function() {
+toggle_edit_btn.onclick = function () {
     let list_items = document.querySelectorAll('#saved-searches-div .saved-search-item .btn-del');
-    console.log(list_items.length);
     for (let item of list_items) {
         if (item.style.display === 'none') {
             item.style.display = 'block';
@@ -84,10 +75,41 @@ sidebar.appendChild(document.createElement('hr'));
 sidebar.appendChild(toggle_edit_btn);
 document.body.appendChild(sidebar)
 // Fill list with saved searches
-populateSavedSearches();
+populateSavedSearches()
 
+// Recall last state of sidebar
+recallSidebarState();
 
+// Recall which state the sidebar was in (collapsed or not) and display it that way
+// If sidebarState is undefined set the value to collapsed
+function recallSidebarState() {
+        chrome.storage.sync.get({sidebarState: 'collapsed'}, function (result) {
+        let state = result.sidebarState;
+        if (state === 'collapsed') {
+            let sidebarWidth = getComputedStyle(sidebar).width;
+            sidebar.style.right = `-${sidebarWidth}` // the width property already contains 'px' at the end
+        } else {
+            sidebar.style.right = '0px'
+        }
+    })
+}
 
+// Toggle Sidebar and put current state in chrome storage
+// No default value for sidebarState needed bc this has already been checked when page was loaded 
+function toggleSidebar() {
+    chrome.storage.sync.get('sidebarState', function (result) {
+        let state = result.sidebarState;
+        if (state === 'collapsed') {
+            sidebar.style.right = '0px'
+            state = 'open';
+        } else {
+            let sidebarWidth = getComputedStyle(sidebar).width;
+            sidebar.style.right = `-${sidebarWidth}` // the width property already contains 'px' at the end
+            state = 'collapsed'
+        }
+        chrome.storage.sync.set({'sidebarState': state}, () => {})
+    })
+}
 
 // Populate the list of saved searches in the sidebar
 function populateSavedSearches() {
@@ -114,7 +136,7 @@ function populateSavedSearches() {
             // Add Delete Button for this item
             let btn_del = document.createElement('button');
             btn_del.classList.add('btn-del'); // to allow custom styling (see styles.css)
-            btn_del.innerHTML= '&#10005'; // code for a cross ->  X
+            btn_del.innerHTML = '&#10005'; // code for a cross ->  X
             btn_del.style.display = 'none'; // hide btn by default
             btn_del.onclick = deleteSearch.bind(this, search.id);
             item.appendChild(btn_del);
@@ -140,7 +162,7 @@ function saveSearch(e) {
     e.preventDefault();
     let search = {}
     search.id = Date.now() // generate uid - that it's guessable isn't important for this application 
-    let item =  document.querySelector("#filterItem_chosen > a > span").innerText;
+    let item = document.querySelector("#filterItem_chosen > a > span").innerText;
     let colour = document.querySelector("#filterPaint_chosen > a > span").innerText;
     search.name = `${colour} ${item}`
     search.link = window.location.href;
@@ -159,9 +181,7 @@ function saveSearch(e) {
 
 // Remove the saved search with the given id from chrome storage
 function deleteSearch(id) {
-    console.log('deleted id: ' + id);
     chrome.storage.sync.get({savedSearches: {}}, function (result) {
-        console.log(result);
         let searches = result.savedSearches;
         delete searches[id];
         chrome.storage.sync.set({savedSearches: searches}, () => {
