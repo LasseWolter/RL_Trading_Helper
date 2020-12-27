@@ -1,20 +1,32 @@
 chrome.runtime.onMessage.addListener(function (request) {
     if (request.bumpAll === "yes") {
-        // List with Bump Buttons
-        let queryString = ".rlg-trade__action.rlg-trade__bump.--bump "
-        let bumpBtns = document.querySelectorAll(queryString);
-        // Return if there are no such buttons and show dialog to user
-        if (bumpBtns.length <= 0) {
-            window.alert("Bump Failed.\nEither you don't have any trades or you are not logged in");
-            return;
-        }
-
-        // If there are buttons, click all of them to bump all
-        for (let btn of bumpBtns) {
-            btn.click()
-        }
+        // Pass keepBumping boolean to bumpAll function 
+        bumpAll(request.keepBumping)
     }
 });
+
+// Bumps all trades
+// In case of keepBumping===true this function calls itself recursively
+function bumpAll(keepBumping = false) {
+    // List with Bump Buttons
+    console.log(Date.now() + ": Bumping Trades")
+    let queryString = ".rlg-trade__action.rlg-trade__bump.--bump "
+    let bumpBtns = document.querySelectorAll(queryString);
+    // Return if there are no such buttons and show dialog to user
+    if (bumpBtns.length <= 0) {
+        window.alert("Bump Failed.\nEither you don't have any trades or you are not logged in");
+        return;
+    }
+
+    // If there are buttons, click all of them to bump all
+    for (let btn of bumpBtns) {
+        btn.click()
+    }
+    if (keepBumping) {
+        // Wait 15 minutes (and 5 seconds :D )before next bump
+        setTimeout(bumpAll.bind(this, true), 905000);
+    } 
+}
 
 // Add Save Button to the filter-div using the native style
 let applyDiv = document.querySelector("div.rlg-trade-filter-content > form > div:nth-child(3) > div.col-1-5");

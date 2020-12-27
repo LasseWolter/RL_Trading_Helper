@@ -23,7 +23,8 @@ bumpAll.onclick = function () {
                 chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
                     if (info.status === 'complete' && tabId === tab.id) {
                         chrome.tabs.onUpdated.removeListener(listener);
-                        chrome.tabs.sendMessage(tab.id, {bumpAll: "yes"});
+                        let keepBumping = document.getElementById('keep-bumping-checkbox').checked;
+                        chrome.tabs.sendMessage(tab.id, {bumpAll: "yes", keepBumping: keepBumping});
                     }
                 });
             });

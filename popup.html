@@ -13,7 +13,7 @@
             border-radius: 6px;
             display: inline-block;
             transition: all 0.3s ease 0s;
-            margin: 5px 0;
+            margin: 5px 5px;
             outline: none;
         }
 
@@ -24,14 +24,33 @@
             border-color: #494949 !important;
             transition: all 0.3s ease 0s;
         }
-        
+
         h1 {
             color: #103567db;
         }
 
+
         body {
             width: 300px;
             background: #e4e4e4;
+        }
+
+        .btn-flat {
+            padding: 5px;
+            font-size: 11px;
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .checkbox-div input {
+            vertical-align: middle;
+        }
+        .checkbox-div {
+            padding: 5px;
         }
     </style>
 </head>
@@ -40,9 +59,16 @@
     <h1> Hello <span id='uname-span'> </span></h1>
     <button id="bumpAll"> Bump All</button>
     </br>
-    <button id="openRLTrade"> Open RL Trade</button>
+    <div class="checkbox-div">
+    <input type="checkbox" id="keep-bumping-checkbox">
+    <label for='keep-bumping-checkbox'> Keep Bumping </label>
+    </div>
     </br> </br>
-    <a href='' id='options-link'> Change your username </a>
+    <div class='footer'>
+        <a href='' id='options-link'> Change your username </a>
+        <button id="openRLTrade" class="btn-flat"> Open RL Trade</button>
+
+    </div>
     <script src="popup.js"></script>
 </body>
 
