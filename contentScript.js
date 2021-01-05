@@ -9,7 +9,8 @@ chrome.runtime.onMessage.addListener(function (request) {
 // In case of keepBumping===true this function calls itself recursively
 function bumpAll(keepBumping = false) {
     // List with Bump Buttons
-    console.log(Date.now() + ": Bumping Trades")
+    let timestamp = new Date().toLocaleTimeString();
+    console.log(timestamp + ": Bumping Trades")
     let queryString = ".rlg-trade__action.rlg-trade__bump.--bump "
     let bumpBtns = document.querySelectorAll(queryString);
     // Return if there are no such buttons and show dialog to user
